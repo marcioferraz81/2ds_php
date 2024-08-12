@@ -13,6 +13,7 @@
             <a class="nav-item nav-link" href="?p=categoria/listar">Categoria</a>       
             <a class="nav-item nav-link" href="?p=dengue/listar">Listar Dengue</a>              
             <a class="nav-item nav-link" href="?p=exemplo">Exemplo JQuery</a>              
+            <a class="nav-item nav-link" href="?p=calculo">Cálculo JQuery</a>              
         </div>
     </div>
 </nav>
