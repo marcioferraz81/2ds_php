@@ -14,6 +14,7 @@
             <a class="nav-item nav-link" href="?p=dengue/listar">Listar Dengue</a>              
             <a class="nav-item nav-link" href="?p=exemplo">Exemplo JQuery</a>              
             <a class="nav-item nav-link" href="?p=calculo">Cálculo JQuery</a>              
+            <a class="nav-item nav-link" href="?p=jogo_velha">Jogo da Velha</a>              
         </div>
     </div>
 </nav>
