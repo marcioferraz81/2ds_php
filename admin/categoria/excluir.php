@@ -1,15 +1,12 @@
 <?php
 $id = filter_input(INPUT_GET, 'id');
-
 include_once '../class/Categoria.php';
 $cat = new Categoria();
 
-//$msg = $cat->excluir($id) === 'null' ? 'Excluído' : 'Erro ao excluir';
-
-if ($cat->excluir($id) === 'null') {
-    $msg = 'Excluído';
+if ($cat->deletar($id) === 'null') {
+    $msg = 'Erro';
 } else {
-    $msg = 'Erro ao excluir';
+    $msg = 'Excluído';
 }
 ?>
 <div class="col-md-12 col-sm-12">

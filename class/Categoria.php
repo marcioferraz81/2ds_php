@@ -9,23 +9,25 @@ class Categoria {
         return $this->jsonDados;
     }
 
-    public function setJsonDados($jsonDados): void {
+    public function setJsonDados($jsonDados) {
         $this->jsonDados = $jsonDados;
     }
 
-    public function salvar() {
-        $caminho = curl_init($this->url . 'categoria.json');
+    // Função para criar um novo registro
+    public function criar() {
+        $caminho = curl_init($this->url . 'categoria.json'); // Caminho para a coleção 'categoria'
 
-        curl_setopt($caminho, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($caminho, CURLOPT_POSTFIELDS, $this->jsonDados);
         curl_setopt($caminho, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($caminho, CURLOPT_POST, true);
+        curl_setopt($caminho, CURLOPT_POSTFIELDS, json_encode($this->getJsonDados()));
 
         $resposta = curl_exec($caminho);
         curl_close($caminho);
 
-        return $resposta;
+        return json_decode($resposta, true);
     }
 
+    // Função para listar todos os registros
     public function listar() {
         $caminho = curl_init($this->url . 'categoria.json');
 
@@ -34,21 +36,42 @@ class Categoria {
         $resposta = curl_exec($caminho);
         curl_close($caminho);
 
-        return $dados = json_decode($resposta, true);
+        return json_decode($resposta, true);
     }
 
-    public function excluir($id) {
-
-        $node = 'categoria/' . $id;
-        $caminho = curl_init($this->url . $node . '.json');
-
-        curl_setopt($caminho, CURLOPT_CUSTOMREQUEST, "DELETE");
+    // Função para buscar um único registro pelo ID
+    public function buscar($id) {
+        $caminho = curl_init($this->url . 'categoria/' . $id . '.json');
         curl_setopt($caminho, CURLOPT_RETURNTRANSFER, true);
+        $resposta = curl_exec($caminho);
+        curl_close($caminho);
+        return json_decode($resposta, true);
+    }
+
+    // Função para atualizar um registro
+    public function atualizar($id) {
+        $caminho = curl_init($this->url . 'categoria/' . $id . '.json');
+        curl_setopt($caminho, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($caminho, CURLOPT_CUSTOMREQUEST, 'PATCH');
+        curl_setopt($caminho, CURLOPT_POSTFIELDS, json_encode($this->getJsonDados()));
 
         $resposta = curl_exec($caminho);
         curl_close($caminho);
 
-        return $resposta;
+        return json_decode($resposta, true);
+    }
+
+    // Função para deletar um registro
+    public function deletar($id) {
+        $caminho = curl_init($this->url . 'categoria/' . $id . '.json');
+
+        curl_setopt($caminho, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($caminho, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+        $resposta = curl_exec($caminho);
+        curl_close($caminho);
+
+        return json_decode($resposta, true);
     }
 
 }

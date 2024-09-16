@@ -1,3 +1,22 @@
+<?php
+$id = filter_input(INPUT_GET, 'id');
+include_once '../class/Categoria.php';
+$cat = new Categoria();
+
+$listar = $cat->buscar($id);
+$nome = '';
+$descricao = '';
+
+if (is_array($listar)) {
+    foreach ($listar as $chave => $valor) {
+        if ($chave === 'descricao') {
+            $descricao = $valor;
+        } elseif ($chave === 'nome') {
+            $nome = $valor;
+        }
+    }
+}
+?>
 <div class="col-md-6 col-sm-12">
     <h3>Salvar</h3>
 </div>
@@ -9,20 +28,20 @@
         </div>
         <div class="form-group">
             <label>Nome</label>
-            <input type="text" class="form-control" name="txtnome" id="txtnome" placeholder="Informe a categoria" maxlength="50" minlength="3" />
+            <input type="text" class="form-control" name="txtnome" id="txtnome" placeholder="Informe a categoria" maxlength="50" minlength="3" value="<?= $nome ?>" />
         </div>
         <div class="form-group">
             <label>Descrição</label>
-            <textarea class="form-control" name="txtdescricao" id="txtdescricao" rows="3" placeholder="Informe a descrição"></textarea>
+            <textarea class="form-control" name="txtdescricao" id="txtdescricao" rows="3" placeholder="Informe a descrição"><?= $descricao ?></textarea>
         </div>
         <div class="form-group">
-            <input type="submit" class="btn btn-primary" name="btnsalvar" id="btnsalvar" value="Salvar" />
+            <input type="submit" class="btn btn-success" name="btneditar" id="btneditar" value="Editar" />
         </div>    
     </form>
 </div>
 
 <?php
-if (filter_input(INPUT_POST, 'btnsalvar')) {
+if (filter_input(INPUT_POST, 'btneditar')) {
     $nome = filter_input(INPUT_POST, 'txtnome');
     $descricao = filter_input(INPUT_POST, 'txtdescricao');
 
@@ -36,7 +55,7 @@ if (filter_input(INPUT_POST, 'btnsalvar')) {
 
     $cat->setJsonDados($dados);
 
-    $msg = $cat->criar() === true ? "Erro" : "Dados salvo";
+    $msg = $cat->atualizar($id) === true ? "Erro" : "Dados salvo";
 
     echo '<div class="col-md-12 col-sm-12">'
     . '<div class="alert alert-primary mt-3" role="alert">'

@@ -35,8 +35,11 @@
                            class="btn btn-danger" data-confirm>
                             <i class="bi bi-trash3-fill"></i>
                         </a>
-                        <a href="?p=categoria/salvar" class="btn btn-success">
+                        <a href="?p=categoria/editar&id=<?= $chave ?>" class="btn btn-success">
                             <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="?p=categoria/buscar&id=<?= $chave ?>" class="btn btn-success">
+                            Pesquisar
                         </a>
                     </td>
                 </tr>
